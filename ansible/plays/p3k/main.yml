@@ -1,0 +1,13 @@
+- name: p3k
+  hosts: testserver
+  become: yes
+  vars:
+    user: vagrant
+    user_home: /home/vagrant
+    docker_compose_file: files/docker-compose.yml
+    enable_swarm: true
+    docker_stack_update: true
+    docker_stack_name: test
+  roles:
+    - python
+    - docker

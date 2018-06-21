@@ -1,0 +1,7 @@
+- name: Mount Device
+  mount:
+      fstype: "{{item.filesystem_type}}"
+      src: "{{item.mount_device}}"
+      name: "{{jenkins_home}}"
+      state: mounted
+  with_items: "{{filesystem_type_device}}"

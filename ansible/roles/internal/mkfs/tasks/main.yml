@@ -1,0 +1,5 @@
+- name: Make File System
+  filesystem:
+    fstype: "{{item.filesystem_type}}"
+    dev: "{{item.mount_device}}"
+  with_items: "{{filesystem_type_device}}"

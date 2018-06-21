@@ -1,0 +1,11 @@
+.idea/
+*.py[co]
+venv/
+.vagrant/
+.credentials
+jenkins.pem
+ansible/**/*.retry
+ansible/ansible.cfg
+ansible/roles/external/
+!ansible/roles/external/.gitkeep
+ubuntu-xenial-16.04-cloudimg-console.log

@@ -1,0 +1,23 @@
+- name: Install python 3
+  apt:
+    name: python3
+    update_cache: yes
+
+- name: Install pip 3
+  apt:
+    name: python3-pip
+
+- name: Create Symbolic link to pip
+  file:
+    owner: "{{user}}"
+    group: "{{user}}"
+    src: /usr/bin/pip3
+    path: /usr/bin/pip
+    state: link
+
+- name: install Virtualenv
+  pip:
+    executable: pip
+    name: "{{item}}"
+    virtualenv_command: virtualenv-3
+  with_items: "{{pip_packages}}"

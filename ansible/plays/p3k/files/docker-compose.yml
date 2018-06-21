@@ -1,0 +1,9 @@
+version: '3'
+services:
+  nginx:
+    image: nginx
+    #command: python -m http.server 80
+    ports:
+      - "80:80"
+    deploy:
+      replicas: 2

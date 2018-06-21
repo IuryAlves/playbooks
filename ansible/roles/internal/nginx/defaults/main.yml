@@ -1,0 +1,13 @@
+basedir: "{{ lookup('pipe', 'git rev-parse --show-toplevel') }}"
+locations:
+  - |
+    location / {
+      proxy_set_header        Host $host;
+      proxy_set_header        X-Real-IP $remote_addr;
+      proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header        X-Forwarded-Proto $scheme;
+      proxy_pass {{server}}:{{jenkins_port}};
+
+      # TODO: mudar jenkins_port para proxy_port e server para proxy_server
+      # proxy_server nao deveria incluir http://
+    }

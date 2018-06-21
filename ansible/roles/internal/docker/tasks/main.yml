@@ -1,0 +1,42 @@
+- name: Install system dependencies
+  apt:
+    name: "{{item}}"
+    update_cache: yes
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+
+- name: Add docker repo
+  command: sh -c "echo deb https://apt.dockerproject.org/repo debian-jessie main > /etc/apt/sources.list.d/docker.list"
+
+- name: Add Docker key
+  command: apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+
+- name: Install Docker
+  apt:
+    name: docker-engine
+    update_cache: yes
+
+- name: Start Docker
+  service:
+    name: docker
+    state: started
+
+- name: Install docker compose
+  pip:
+    name: "docker-compose=={{docker_compose_version}}"
+
+- name: Add user "{{user}}" to docker group
+  when: user is defined
+  user:
+    name: "{{user}}"
+    groups:
+      - docker
+
+- name: Enable Docker Swarm Mode
+  include: swarm.yml
+  when: enable_swarm == true
+
+- name: Update Docker Stack
+  include: stack.yml
+  when: docker_stack_update == true

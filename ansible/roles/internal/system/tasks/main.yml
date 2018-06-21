@@ -1,0 +1,12 @@
+- name: Update System Cache
+  become: yes
+  when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+  apt:
+    update_cache: yes
+
+- name: Install System packages
+  become: yes
+  when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+  apt:
+    name: "{{item}}"
+  with_items: "{{system_packages}}"

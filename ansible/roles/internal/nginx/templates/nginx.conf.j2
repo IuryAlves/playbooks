@@ -1,0 +1,22 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server ipv6only=on;
+	return 301 https://{{fqdn}}$request_uri;
+}
+
+server {
+	listen 443 ssl;
+	listen [::]:443 ipv6only=on;
+	server_name _;
+
+
+    {% if server_key_path is defined and server_crt_path is defined %}
+    	ssl_certificate /etc/nginx/ssl/server.crt;
+	    ssl_certificate_key /etc/nginx/ssl/server.key;
+	{% endif %}
+
+
+    {% for location in locations %}
+        {{ location }}
+    {% endfor %}
+}

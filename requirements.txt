@@ -1,0 +1,11 @@
+awscli==1.15.39
+boto==2.46.1
+boto3==1.7.39
+click==6.7
+click-datetime==0.2
+Pillow==4.0.0
+ansible==2.3
+docker==2.3.0
+requests==2.13.0
+beautifulsoup4==4.6.0
+colorama==0.3.3

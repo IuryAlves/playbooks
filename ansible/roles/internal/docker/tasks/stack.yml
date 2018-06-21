@@ -1,0 +1,8 @@
+- name: "Copy compose file {{docker_compose_file}}"
+  copy:
+    src: "{{docker_compose_file}}"
+    dest: "{{user_home}}/docker-compose.yml"
+
+- name: "Deploy stack {{docker_stack_name}}"
+  shell: >
+    docker stack deploy -c {{user_home}}/docker-compose.yml {{docker_stack_name}}

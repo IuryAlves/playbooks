@@ -1,0 +1,43 @@
+- name: install nginx
+  become: yes
+  apt: 
+    name: nginx
+    update_cache: yes 
+
+- name: Create ssl folder
+  file:
+    dest: /etc/nginx/ssl
+    state: directory
+    mode: 0400
+
+- name: Copy ssl server crt
+  copy:
+    src: "{{server_crt_path}}"
+    dest: /etc/nginx/ssl/server.crt
+    mode: 0400
+  when: server_crt_path is defined
+
+- name: Copy ssl server key
+  copy:
+    src: "{{server_key_path}}"
+    dest: /etc/nginx/ssl/server.key
+    mode: 0400
+  when: server_key_path is defined
+
+- name: copy nginx config file
+  become: yes
+  template: 
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/default
+
+- name: enable configuration
+  file:
+    dest: /etc/nginx/sites-enabled/default
+    src: /etc/nginx/sites-available/default
+    state: link
+
+- name: restart nginx
+  become: yes
+  service: 
+    name: nginx
+    state: restarted

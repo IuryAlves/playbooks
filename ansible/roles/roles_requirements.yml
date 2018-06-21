@@ -1,0 +1,5 @@
+---
+- src: hsingh.elastic_beanstalk
+  version: "v1.0.1"
+- src: greendayonfire.mongodb
+- src: git+https://github.com/IuryAlves/infrastructure-agent-ansible.git

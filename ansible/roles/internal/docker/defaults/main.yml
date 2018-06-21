@@ -1,0 +1,4 @@
+docker_compose_version: 1.11.2
+swarm_iface: 127.0.0.1
+enable_swarm: false
+docker_stack_update: false

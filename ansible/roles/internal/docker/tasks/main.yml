@@ -33,6 +33,11 @@
     groups:
       - docker
 
+- name: "Docker Login with user {{docker_login_user}}"
+  when: docker_login_user is defined and docker_login_password is defined
+  shell: >
+    docker login -u {{docker_login_user}} -p {{docker_login_password}} {{docker_login_server}}
+
 - name: Enable Docker Swarm Mode
   include: swarm.yml
   when: enable_swarm == true

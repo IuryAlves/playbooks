@@ -3,6 +3,11 @@
     src: "{{docker_compose_file}}"
     dest: "{{user_home}}/docker-compose.yml"
 
+- name: Pull Images
+  shell: >
+    docker pull {{item}}
+  with_items: "{{docker_images}}"
+
 - name: "Deploy stack {{docker_stack_name}}"
   shell: >
     docker stack deploy -c {{user_home}}/docker-compose.yml {{docker_stack_name}}
